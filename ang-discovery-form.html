@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANG Enterprises — Client Discovery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --navy: #1E2761;
+      --navy-light: #253080;
+      --green: #1D9E75;
+      --green-light: #22b585;
+      --white: #ffffff;
+      --off-white: #f4f6fb;
+      --gray: #8892a4;
+      --border: #dde3f0;
+      --text: #1a2035;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--navy);
+      border-radius: 16px 16px 0 0;
+      padding: 40px 48px 36px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(29,158,117,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .header-tag {
+      display: inline-block;
+      background: rgba(29,158,117,0.2);
+      border: 1px solid rgba(29,158,117,0.4);
+      color: var(--green-light);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+    .header-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .meta-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .meta-field input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .meta-field input::placeholder { color: rgba(255,255,255,0.25); }
+    .meta-field input:focus { border-color: var(--green); }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      background: var(--navy-light);
+      padding: 0 48px;
+      display: flex;
+      gap: 0;
+    }
+    .progress-step {
+      flex: 1;
+      padding: 12px 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      cursor: default;
+      user-select: none;
+    }
+    .progress-step.active {
+      color: var(--green-light);
+      border-bottom-color: var(--green);
+    }
+
+    /* FORM BODY */
+    .form-body {
+      background: white;
+      border-radius: 0 0 16px 16px;
+      padding: 48px;
+      box-shadow: 0 8px 40px rgba(30,39,97,0.08);
+    }
+
+    /* SECTION */
+    .section { margin-bottom: 48px; }
+    .section:last-of-type { margin-bottom: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      width: 30px; height: 30px;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .section-sub {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* FIELDS */
+    .field-group { margin-bottom: 22px; }
+    .field-group:last-child { margin-bottom: 0; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+    label.field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+    label.field-label .req { color: var(--green); }
+    .hint {
+      font-size: 11px;
+      color: var(--gray);
+      margin-bottom: 7px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      color: var(--text);
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
+      background: white;
+    }
+    textarea { min-height: 76px; line-height: 1.65; }
+    select { cursor: pointer; }
+
+    /* CHECK / RADIO GRID */
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 8px;
+    }
+    .check-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .check-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 13px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 13px;
+      color: var(--text);
+      user-select: none;
+    }
+    .check-item:hover { border-color: var(--green); background: rgba(29,158,117,0.04); }
+    .check-item input[type="checkbox"],
+    .check-item input[type="radio"] {
+      accent-color: var(--green);
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      padding: 0;
+      min-height: unset;
+    }
+
+    /* BUSINESS CARD */
+    .biz-card {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .biz-card:last-child { margin-bottom: 0; }
+    .biz-card-header {
+      background: var(--navy);
+      color: white;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .biz-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+    .biz-card-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .biz-card-body .full { grid-column: 1 / -1; }
+    .biz-card-body .field-group { margin-bottom: 0; }
+
+    /* ADD BUSINESS BUTTON */
+    .btn-add {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      color: var(--gray);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 20px;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      margin-top: 12px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-add:hover { border-color: var(--green); color: var(--green); }
+
+    /* PAIN SCALE */
+    .pain-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 90px;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pain-row:first-child { border-top: 1px solid var(--border); }
+    .pain-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .scale-opts {
+      display: flex;
+      gap: 5px;
+    }
+    .scale-opt { flex: 1; text-align: center; }
+    .scale-opt input[type="radio"] { display: none; }
+    .scale-opt label {
+      display: block;
+      padding: 7px 4px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .scale-opt input:checked + label { background: var(--green); border-color: var(--green); color: white; }
+    .scale-opt label:hover { border-color: var(--green); color: var(--green); }
+    .scale-end { font-size: 11px; color: var(--gray); text-align: right; white-space: nowrap; }
+
+    /* OUTCOME BOX */
+    .outcome-box {
+      background: linear-gradient(135deg, rgba(30,39,97,0.03), rgba(29,158,117,0.05));
+      border: 1.5px solid rgba(29,158,117,0.22);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+    .outcome-box .field-group { margin-bottom: 18px; }
+    .outcome-box .field-group:last-child { margin-bottom: 0; }
+
+    /* NOTES BOX */
+    .notes-box {
+      background: rgba(30,39,97,0.025);
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+    .notes-box textarea {
+      background: transparent;
+      border: none;
+      box-shadow: none !important;
+      padding: 0;
+      min-height: 80px;
+      font-size: 13px;
+    }
+    .notes-box textarea:focus { box-shadow: none !important; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* FOOTER */
+    .form-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-brand { font-size: 12px; color: var(--gray); line-height: 1.6; }
+    .footer-brand strong { color: var(--navy); }
+
+    .btn-row { display: flex; gap: 10px; }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px 22px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .btn-primary { background: var(--navy); color: white; }
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-secondary { background: var(--off-white); color: var(--navy); border: 1.5px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--navy); }
+
+    /* PRINT */
+    @media print {
+      body { background: white; padding: 0; }
+      .header { border-radius: 0; }
+      .progress-bar { display: none; }
+      .form-body { box-shadow: none; border-radius: 0; padding: 32px; }
+      .btn-row, .btn { display: none; }
+      input, textarea, select { border-color: #ccc !important; background: white !important; }
+      .biz-card-body { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 28px 24px; }
+      .header-meta { grid-template-columns: 1fr 1fr; }
+      .form-body { padding: 28px 24px; }
+      .field-row { grid-template-columns: 1fr; }
+      .biz-card-body { grid-template-columns: 1fr; }
+      .pain-row { grid-template-columns: 1fr; gap: 8px; }
+      .progress-bar { padding: 0 24px; }
+      .progress-step { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-tag">ANG Enterprises LLC — Discovery</div>
+    <h1>Client Discovery Form</h1>
+    <p>Fill this out before or during the first call. Your answers shape the system we design for you.</p>
+    <div class="header-meta">
+      <div class="meta-field">
+        <label>Client Name</label>
+        <input type="text" id="client-name" placeholder="Full name" />
+      </div>
+      <div class="meta-field">
+        <label>Business / Company</label>
+        <input type="text" placeholder="Company name" />
+      </div>
+      <div class="meta-field">
+        <label>Date</label>
+        <input type="text" id="date-field" placeholder="MM/DD/YYYY" />
+      </div>
+      <div class="meta-field">
+        <label>Conducted By</label>
+        <input type="text" placeholder="AJ Grant" value="AJ Grant" />
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <div class="progress-step active">1. Overview</div>
+    <div class="progress-step active">2. Tools</div>
+    <div class="progress-step active">3. Pain Points</div>
+    <div class="progress-step active">4. Goals</div>
+    <div class="progress-step active">5. Authority & Budget</div>
+    <div class="progress-step active">6. Next Step</div>
+  </div>
+
+  <div class="form-body">
+
+    <!-- ── SECTION 1: CONTACT & OVERVIEW ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div>
+          <div class="section-title">Contact & Business Overview</div>
+          <div class="section-sub">Who they are and what they're running</div>
+        </div>
+      </div>
+
+      <div class="field-row" style="margin-bottom:16px;">
+        <div class="field-group">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" placeholder="client@email.com" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Phone</label>
+          <input type="tel" placeholder="(555) 000-0000" />
+        </div>
+      </div>
+
+      <div class="field-row" style="margin-bottom:16px;">
+        <div class="field-group">
+          <label class="field-label">City / State</label>
+          <input type="text" placeholder="Youngstown, OH" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Website (if any)</label>
+          <input type="url" placeholder="https://" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">How many businesses / operations are you running? <span class="req">*</span></label>
+        <div class="check-grid cols-3">
+          <label class="check-item"><input type="radio" name="biz_count" value="1"> 1</label>
+          <label class="check-item"><input type="radio" name="biz_count" value="2"> 2</label>
+          <label class="check-item"><input type="radio" name="biz_count" value="3"> 3</label>
+          <label class="check-item"><input type="radio" name="biz_count" value="4"> 4</label>
+          <label class="check-item"><input type="radio" name="biz_count" value="5+"> 5+</label>
+        </div>
+      </div>
+
+      <!-- DYNAMIC BUSINESS CARDS -->
+      <div class="field-group">
+        <label class="field-label">Tell me about each business / operation</label>
+        <div id="biz-cards">
+
+          <div class="biz-card">
+            <div class="biz-card-header"><div class="biz-dot"></div> Business 1</div>
+            <div class="biz-card-body">
+              <div class="field-group">
+                <label class="field-label">Business Name</label>
+                <input type="text" placeholder="e.g. Metro Print Shop" />
+              </div>
+              <div class="field-group">
+                <label class="field-label">Industry / Type</label>
+                <input type="text" placeholder="e.g. Print services, Retail" />
+              </div>
+              <div class="field-group">
+                <label class="field-label">Years in operation</label>
+                <select>
+                  <option value="">Select...</option>
+                  <option>Less than 1 year</option>
+                  <option>1–2 years</option>
+                  <option>3–5 years</option>
+                  <option>5–10 years</option>
+                  <option>10+ years</option>
+                  <option>Still building / pre-launch</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Approx. monthly revenue</label>
+                <select>
+                  <option value="">Select...</option>
+                  <option>Pre-revenue</option>
+                  <option>Under $2,000</option>
+                  <option>$2,000–$5,000</option>
+                  <option>$5,000–$15,000</option>
+                  <option>$15,000–$50,000</option>
+                  <option>$50,000+</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+              <div class="field-group full">
+                <label class="field-label">Walk me through a normal day operationally</label>
+                <div class="hint">How do customers reach you → what happens → how does money change hands</div>
+                <textarea placeholder="Be specific — the messier and more manual it sounds, the better I understand what to fix..."></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button class="btn-add" onclick="addBizCard()">+ Add another business</button>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">How many people (including you) are currently involved in running these businesses?</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="team_size" value="1"> Just me</label>
+          <label class="check-item"><input type="radio" name="team_size" value="2-3"> 2–3 people</label>
+          <label class="check-item"><input type="radio" name="team_size" value="4-10"> 4–10 people</label>
+          <label class="check-item"><input type="radio" name="team_size" value="10+"> 10+ people</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: CURRENT TOOLS ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title">Current Tools & Systems</div>
+          <div class="section-sub">What are they using today — even if it's just a phone and a notebook</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">How do customers currently reach you or place orders / bookings? (check all that apply)</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox"> Phone / Text</label>
+          <label class="check-item"><input type="checkbox"> Walk-in</label>
+          <label class="check-item"><input type="checkbox"> Email</label>
+          <label class="check-item"><input type="checkbox"> Social DMs (Instagram, FB)</label>
+          <label class="check-item"><input type="checkbox"> Website / online form</label>
+          <label class="check-item"><input type="checkbox"> Third-party app</label>
+          <label class="check-item"><input type="checkbox"> Referrals only</label>
+          <label class="check-item"><input type="checkbox"> Other</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What software or tools are you currently using? (check all that apply)</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox"> Google Sheets / Excel</label>
+          <label class="check-item"><input type="checkbox"> Square / Clover POS</label>
+          <label class="check-item"><input type="checkbox"> QuickBooks / Wave</label>
+          <label class="check-item"><input type="checkbox"> Calendly / Acuity</label>
+          <label class="check-item"><input type="checkbox"> Mindbody / Vagaro</label>
+          <label class="check-item"><input type="checkbox"> HoneyBook / Dubsado</label>
+          <label class="check-item"><input type="checkbox"> Housecall Pro / Jobber</label>
+          <label class="check-item"><input type="checkbox"> Shopify / WooCommerce</label>
+          <label class="check-item"><input type="checkbox"> MailChimp / Klaviyo</label>
+          <label class="check-item"><input type="checkbox"> Slack / Teams</label>
+          <label class="check-item"><input type="checkbox"> Nothing formal</label>
+          <label class="check-item"><input type="checkbox"> Other</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Anything else — apps, spreadsheets, notebooks, whiteboards?</label>
+        <textarea placeholder="List everything. The goal is a full picture of how info moves through your business right now."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Is there anything you're currently paying for that you feel isn't working?</label>
+        <textarea placeholder="Tools, subscriptions, services — anything that feels like wasted money..."></textarea>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: PAIN POINTS ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title">Pain Points & Friction</div>
+          <div class="section-sub">Where time is being lost and money is leaking</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What's the #1 thing that frustrates you about how your business runs right now? <span class="req">*</span></label>
+        <textarea placeholder="Say it plainly — what keeps you up, what makes you feel behind, what breaks down most often..."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Rate how painful each area is (1 = not a problem, 5 = daily headache)</label>
+        <div style="margin-top:4px;">
+          <div class="pain-row">
+            <div class="pain-label">Tracking orders / jobs</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_orders" id="po1" value="1"><label for="po1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_orders" id="po2" value="2"><label for="po2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_orders" id="po3" value="3"><label for="po3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_orders" id="po4" value="4"><label for="po4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_orders" id="po5" value="5"><label for="po5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Client communication</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_comm" id="pc1" value="1"><label for="pc1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_comm" id="pc2" value="2"><label for="pc2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_comm" id="pc3" value="3"><label for="pc3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_comm" id="pc4" value="4"><label for="pc4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_comm" id="pc5" value="5"><label for="pc5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Scheduling / bookings</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_sched" id="ps1" value="1"><label for="ps1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_sched" id="ps2" value="2"><label for="ps2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_sched" id="ps3" value="3"><label for="ps3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_sched" id="ps4" value="4"><label for="ps4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_sched" id="ps5" value="5"><label for="ps5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Payments / deposits / invoicing</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_pay" id="pp1" value="1"><label for="pp1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_pay" id="pp2" value="2"><label for="pp2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_pay" id="pp3" value="3"><label for="pp3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_pay" id="pp4" value="4"><label for="pp4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_pay" id="pp5" value="5"><label for="pp5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Visibility across all operations</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_vis" id="pv1" value="1"><label for="pv1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_vis" id="pv2" value="2"><label for="pv2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_vis" id="pv3" value="3"><label for="pv3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_vis" id="pv4" value="4"><label for="pv4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_vis" id="pv5" value="5"><label for="pv5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Staff / team coordination</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_staff" id="pst1" value="1"><label for="pst1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_staff" id="pst2" value="2"><label for="pst2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_staff" id="pst3" value="3"><label for="pst3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_staff" id="pst4" value="4"><label for="pst4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_staff" id="pst5" value="5"><label for="pst5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-label">Marketing / bringing in clients</div>
+            <div class="scale-opts">
+              <div class="scale-opt"><input type="radio" name="p_mkt" id="pm1" value="1"><label for="pm1">1</label></div>
+              <div class="scale-opt"><input type="radio" name="p_mkt" id="pm2" value="2"><label for="pm2">2</label></div>
+              <div class="scale-opt"><input type="radio" name="p_mkt" id="pm3" value="3"><label for="pm3">3</label></div>
+              <div class="scale-opt"><input type="radio" name="p_mkt" id="pm4" value="4"><label for="pm4">4</label></div>
+              <div class="scale-opt"><input type="radio" name="p_mkt" id="pm5" value="5"><label for="pm5">5</label></div>
+            </div>
+            <div class="scale-end">Daily headache</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">If you could fix ONE thing this month, what would it be?</label>
+        <textarea placeholder="Be specific — even if it sounds small or obvious"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What does a bad week look like? What triggers it?</label>
+        <textarea placeholder="Describe a recent rough week — what went wrong, what fell through the cracks..."></textarea>
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: GOALS ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div>
+          <div class="section-title">Goals & Vision</div>
+          <div class="section-sub">Where they're trying to go</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What does success look like 6 months from now? <span class="req">*</span></label>
+        <div class="hint">Operations, revenue, time, stress level — paint the full picture</div>
+        <textarea placeholder="I want to be able to..."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What's your primary focus right now?</label>
+        <div class="check-grid cols-2">
+          <label class="check-item"><input type="radio" name="focus" value="fix_ops"> Fix how my current operations run</label>
+          <label class="check-item"><input type="radio" name="focus" value="launch"> Launch something new</label>
+          <label class="check-item"><input type="radio" name="focus" value="scale"> Scale what's already working</label>
+          <label class="check-item"><input type="radio" name="focus" value="all"> All of the above</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Are you planning to hire or grow your team in the next 6 months?</label>
+        <div class="check-grid cols-3">
+          <label class="check-item"><input type="radio" name="hiring" value="yes"> Yes, actively</label>
+          <label class="check-item"><input type="radio" name="hiring" value="maybe"> Maybe</label>
+          <label class="check-item"><input type="radio" name="hiring" value="no"> Not planning to</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Is there a launch, opening, or deadline driving your timeline?</label>
+        <textarea placeholder="Grand opening, investor meeting, busy season, etc. — any hard dates I should know about..."></textarea>
+      </div>
+    </div>
+
+    <!-- ── SECTION 5: AUTHORITY & BUDGET ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div>
+          <div class="section-title">Authority & Budget</div>
+          <div class="section-sub">Decision-making power and investment capacity</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Who makes the final decision to move forward? <span class="req">*</span></label>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="decision" value="me"> Me — solo decision</label>
+          <label class="check-item"><input type="radio" name="decision" value="partner"> Me + a partner</label>
+          <label class="check-item"><input type="radio" name="decision" value="board"> Board / investors</label>
+          <label class="check-item"><input type="radio" name="decision" value="other"> Someone else</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Have you invested in software or custom systems before?</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="prior" value="yes_retainer"> Yes — paid monthly retainer</label>
+          <label class="check-item"><input type="radio" name="prior" value="yes_build"> Yes — one-time custom build</label>
+          <label class="check-item"><input type="radio" name="prior" value="free_only"> Free tools only</label>
+          <label class="check-item"><input type="radio" name="prior" value="never"> Never invested in this</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What's your general comfort level investing monthly to fix your operations?</label>
+        <div class="hint">This helps me scope the right solution — no wrong answer</div>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="budget" value="under500"> Under $500/mo</label>
+          <label class="check-item"><input type="radio" name="budget" value="500-1500"> $500–$1,500/mo</label>
+          <label class="check-item"><input type="radio" name="budget" value="1500-3500"> $1,500–$3,500/mo</label>
+          <label class="check-item"><input type="radio" name="budget" value="open"> Open — show me the ROI</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">How soon do you want something in place?</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="timeline" value="asap"> ASAP</label>
+          <label class="check-item"><input type="radio" name="timeline" value="30days"> Within 30 days</label>
+          <label class="check-item"><input type="radio" name="timeline" value="90days"> 60–90 days</label>
+          <label class="check-item"><input type="radio" name="timeline" value="flexible"> Flexible</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Anything else about budget or timing I should know?</label>
+        <textarea placeholder="Seasonal cash flow, upcoming expenses, funding in pipeline — anything that affects timing..."></textarea>
+      </div>
+    </div>
+
+    <!-- ── SECTION 6: CALL NOTES & OUTCOME ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div>
+          <div class="section-title">Call Notes & Outcome</div>
+          <div class="section-sub">For AJ — fill in during or right after the call</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Raw call notes</label>
+        <div class="notes-box">
+          <textarea placeholder="Anything they said that stood out — exact quotes, energy, hesitation, what lit them up..."></textarea>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">What's the real problem under the surface?</label>
+        <div class="hint">Not what they said — what you heard. What's actually going on?</div>
+        <textarea placeholder="My read: ..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="outcome-box">
+        <div class="field-row" style="margin-bottom:18px;">
+          <div class="field-group">
+            <label class="field-label">Call outcome <span class="req">*</span></label>
+            <div class="check-grid cols-2">
+              <label class="check-item"><input type="radio" name="outcome" value="yes"> ✅ Moving forward</label>
+              <label class="check-item"><input type="radio" name="outcome" value="maybe"> 🤔 Follow up</label>
+              <label class="check-item"><input type="radio" name="outcome" value="not_now"> ⏳ Not right now</label>
+              <label class="check-item"><input type="radio" name="outcome" value="no"> ❌ Not a fit</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Follow-up date</label>
+            <input type="text" placeholder="MM/DD/YYYY" style="margin-bottom:12px;" />
+            <label class="field-label">Agreed next step</label>
+            <input type="text" placeholder="e.g. Send proposal by Friday" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">What to build into the proposal (priority order)</label>
+          <textarea placeholder="Which modules first, any pricing notes, what they were most excited about..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="form-footer">
+      <div class="footer-brand">
+        <strong>ANG Enterprises LLC</strong> — Consult → Plan → Build → Retain<br>
+        african1024@gmail.com
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="window.print()">Print / Save PDF</button>
+        <button class="btn btn-primary" onclick="exportJSON()">Export Answers</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Auto-fill today's date
+  const d = new Date();
+  document.getElementById('date-field').value =
+    `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`;
+
+  // Dynamic "Add Business" cards
+  let bizCount = 1;
+  function addBizCard() {
+    bizCount++;
+    const container = document.getElementById('biz-cards');
+    const card = document.createElement('div');
+    card.className = 'biz-card';
+    card.innerHTML = `
+      <div class="biz-card-header">
+        <div class="biz-dot"></div> Business ${bizCount}
+        <button onclick="this.closest('.biz-card').remove(); rebumberCards();"
+          style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:18px;line-height:1;padding:0;">×</button>
+      </div>
+      <div class="biz-card-body">
+        <div class="field-group">
+          <label class="field-label">Business Name</label>
+          <input type="text" placeholder="e.g. The Event Space" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Industry / Type</label>
+          <input type="text" placeholder="e.g. Venue rental, Wellness" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Years in operation</label>
+          <select>
+            <option value="">Select...</option>
+            <option>Less than 1 year</option>
+            <option>1–2 years</option>
+            <option>3–5 years</option>
+            <option>5–10 years</option>
+            <option>10+ years</option>
+            <option>Still building / pre-launch</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Approx. monthly revenue</label>
+          <select>
+            <option value="">Select...</option>
+            <option>Pre-revenue</option>
+            <option>Under $2,000</option>
+            <option>$2,000–$5,000</option>
+            <option>$5,000–$15,000</option>
+            <option>$15,000–$50,000</option>
+            <option>$50,000+</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div class="field-group full">
+          <label class="field-label">Walk me through a normal day operationally</label>
+          <div class="hint">How do customers reach you → what happens → how does money change hands</div>
+          <textarea placeholder="Be specific..."></textarea>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  }
+
+  function rebumberCards() {
+    document.querySelectorAll('#biz-cards .biz-card').forEach((card, i) => {
+      const h = card.querySelector('.biz-card-header');
+      const dot = h.querySelector('.biz-dot');
+      const btn = h.querySelector('button');
+      h.textContent = '';
+      h.appendChild(dot);
+      h.appendChild(document.createTextNode(` Business ${i + 1}`));
+      if (i > 0 && btn) h.appendChild(btn);
+    });
+    bizCount = document.querySelectorAll('#biz-cards .biz-card').length;
+  }
+
+  // Export answers as JSON (for piping into proposal builder later)
+  function exportJSON() {
+    const form = {};
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select').forEach((el, i) => {
+      if (el.value) form[el.placeholder || el.name || `field_${i}`] = el.value;
+    });
+    document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(el => {
+      form[el.name] = form[el.name] ? form[el.name] + ', ' + el.value : el.value;
+    });
+    const blob = new Blob([JSON.stringify(form, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    const client = document.getElementById('client-name').value || 'client';
+    a.download = `discovery-${client.toLowerCase().replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+  }
+</script>
+</body>
+</html>
