@@ -458,19 +458,19 @@
     <div class="header-meta">
       <div class="meta-field">
         <label>Client Name</label>
-        <input type="text" id="client-name" placeholder="Full name" />
+        <input type="text" id="client-name" name="client_name" placeholder="Full name" />
       </div>
       <div class="meta-field">
         <label>Business / Company</label>
-        <input type="text" placeholder="Company name" />
+        <input type="text" name="company" placeholder="Company name" />
       </div>
       <div class="meta-field">
         <label>Date</label>
-        <input type="text" id="date-field" placeholder="MM/DD/YYYY" />
+        <input type="text" id="date-field" name="date" placeholder="MM/DD/YYYY" />
       </div>
       <div class="meta-field">
         <label>Conducted By</label>
-        <input type="text" placeholder="AJ Grant" value="AJ Grant" />
+        <input type="text" name="conducted_by" placeholder="AJ Grant" value="AJ Grant" />
       </div>
     </div>
   </div>
@@ -485,6 +485,7 @@
     <div class="progress-step active">6. Next Step</div>
   </div>
 
+  <form action="https://formspree.io/f/xojzwqlb" method="POST">
   <div class="form-body">
 
     <!-- ── SECTION 1: CONTACT & OVERVIEW ── -->
@@ -500,11 +501,11 @@
       <div class="field-row" style="margin-bottom:16px;">
         <div class="field-group">
           <label class="field-label">Email <span class="req">*</span></label>
-          <input type="email" placeholder="client@email.com" />
+          <input type="email" name="email" placeholder="client@email.com" />
         </div>
         <div class="field-group">
           <label class="field-label">Phone</label>
-          <input type="tel" placeholder="(555) 000-0000" />
+          <input type="tel" name="phone" placeholder="(555) 000-0000" />
         </div>
       </div>
 
@@ -911,11 +912,12 @@
         african1024@gmail.com
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" onclick="window.print()">Print / Save PDF</button>
-        <button class="btn btn-primary" onclick="exportJSON()">Export Answers</button>
+        <button type="button" class="btn btn-secondary" onclick="window.print()">Print / Save PDF</button>
+        <button type="submit" class="btn btn-primary">Submit to ANG →</button>
       </div>
     </div>
 
+  </form>
   </div>
 </div>
 
