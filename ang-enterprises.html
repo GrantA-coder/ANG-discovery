@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANG Enterprises — African Grant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --navy:  #1E2761;
+      --navy2: #162050;
+      --navy3: #253080;
+      --green: #1D9E75;
+      --green2:#22b585;
+      --brown: #8B5E3C;
+      --brown2:#A8723A;
+      --white: #F4F6FB;
+      --gray:  #8892A4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0e1530;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .flyer {
+      width: 100%;
+      max-width: 480px;
+      background: var(--navy);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    .flyer::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(29,158,117,0.18) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .back-link {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--green); }
+
+    .top-bar { background: var(--green); padding: 10px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 12px; }
+    .top-bar span { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .hero { padding: 32px 36px 28px; position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .eyebrow span { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+    .hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 50px; line-height: 0.98; color: var(--white); letter-spacing: 0.01em; margin-bottom: 6px; }
+    .hero-headline .accent { color: var(--green); display: block; }
+    .hero-sub { font-size: 13.5px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.65; margin-top: 14px; max-width: 360px; }
+
+    .rule { height: 1px; margin: 0 36px; background: linear-gradient(90deg, var(--green) 0%, rgba(29,158,117,0.15) 60%, transparent 100%); }
+
+    .problem-row { display: flex; gap: 0; padding: 26px 36px; position: relative; z-index: 1; }
+    .prob-item { flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .prob-item:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+    .prob-item:first-child { padding-left: 0; }
+    .prob-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--brown2); line-height: 1; margin-bottom: 4px; }
+    .prob-label { font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.4; }
+    .prob-desc { font-size: 9.5px; color: rgba(255,255,255,0.4); margin-top: 3px; line-height: 1.5; }
+
+    .what-section { padding: 0 36px 26px; position: relative; z-index: 1; }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; color: var(--green); }
+    .section-note { font-size: 10.5px; color: rgba(255,255,255,0.4); font-style: italic; margin-bottom: 14px; line-height: 1.5; }
+    .what-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; }
+    .what-card:last-child { margin-bottom: 0; }
+    .what-card.highlight { border-color: rgba(29,158,117,0.35); background: rgba(29,158,117,0.07); }
+    .what-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; background: rgba(29,158,117,0.15); }
+    .what-title { font-size: 12.5px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .what-body { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+    .process-strip { margin: 0 36px 26px; background: var(--green); border-radius: 10px; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .process-step { text-align: center; flex: 1; }
+    .process-word { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: white; letter-spacing: 0.05em; display: block; }
+    .process-arrow { font-size: 12px; color: rgba(255,255,255,0.4); flex-shrink: 0; padding: 0 2px; }
+
+    .proof-section { margin: 0 36px 12px; border-radius: 12px; padding: 15px 18px; display: flex; gap: 13px; align-items: center; position: relative; z-index: 1; border: 1px solid rgba(29,158,117,0.25); }
+    .proof-section.brown { border-color: rgba(168,114,58,0.3); margin-bottom: 26px; }
+    .proof-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .proof-badge.brown-bg { background: var(--brown); }
+    .proof-badge.navy-bg { background: var(--navy3); }
+    .proof-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; color: var(--green); }
+    .proof-text { font-size: 11.5px; font-weight: 600; color: var(--white); line-height: 1.4; }
+    .proof-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; line-height: 1.5; }
+
+    .cta-section { background: var(--navy2); padding: 26px 36px 30px; display: flex; gap: 22px; align-items: center; position: relative; z-index: 1; }
+    .qr-wrap { flex-shrink: 0; background: white; padding: 8px; border-radius: 10px; }
+    .qr-wrap canvas, .qr-wrap img { display: block; border-radius: 4px; }
+    .cta-text { flex: 1; }
+    .cta-headline { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); line-height: 1; letter-spacing: 0.02em; margin-bottom: 8px; }
+    .cta-headline .green { color: var(--green); }
+    .cta-body { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 12px; }
+    .cta-url { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; word-break: break-all; }
+
+    .flyer-footer { background: var(--navy2); border-top: 1px solid rgba(255,255,255,0.08); padding: 26px 36px 30px; position: relative; z-index: 1; }
+    .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: white; letter-spacing: 0.03em; margin-bottom: 14px; }
+    .contact-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; }
+    .contact-row:last-of-type { border-bottom: none; }
+    .contact-label { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; width: 78px; flex-shrink: 0; }
+    .contact-value { color: rgba(255,255,255,0.85); }
+    .contact-value.placeholder { color: rgba(255,255,255,0.35); font-style: italic; }
+    .contact-note { font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.5; margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); }
+    .contact-note strong { color: var(--green); }
+
+    .cross-link { display: block; text-align: center; padding: 16px; font-family: 'DM Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,0.4); text-decoration: none; background: var(--navy2); }
+    .cross-link:hover { color: var(--brown2); }
+    .cross-link span { color: var(--brown2); }
+
+    .print-btn {
+      display: block; width: 100%; max-width: 480px; margin: 16px auto 0;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5);
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 11px; border-radius: 10px;
+      cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+    }
+    .print-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .flyer { border-radius: 0; box-shadow: none; width: 100%; max-width: none; }
+      .print-btn, .back-link { display: none; }
+    }
+    @media (max-width: 500px) {
+      .hero-headline { font-size: 40px; }
+      .problem-row { padding: 22px 24px; }
+      .hero, .what-section, .cta-section, .flyer-footer { padding-left: 24px; padding-right: 24px; }
+      .rule, .process-strip, .proof-section { margin-left: 24px; margin-right: 24px; }
+      .cta-section { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">&larr; African Grant</a>
+
+<div class="flyer">
+
+  <div class="top-bar"><span>ANG Enterprises LLC</span><span>Consult · Plan · Build · Retain</span></div>
+
+  <div class="hero">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>Business Operating Systems</span></div>
+    <div class="hero-headline">Your Business,<br><span class="accent">Finally Running</span>Right.</div>
+    <p class="hero-sub">We build custom operating systems for small businesses — so you stop running everything in your head and start running it in a system built for how you actually work.</p>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="problem-row">
+    <div class="prob-item"><div class="prob-num">01</div><div class="prob-label">No Central System</div><div class="prob-desc">Texts, calls, walk-ins — no single place it all lives</div></div>
+    <div class="prob-item"><div class="prob-num">02</div><div class="prob-label">Manual Everything</div><div class="prob-desc">You're the system. And you're exhausted.</div></div>
+    <div class="prob-item"><div class="prob-num">03</div><div class="prob-label">No Visibility</div><div class="prob-desc">Can't see what's happening until something breaks</div></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="what-section" style="padding-top:26px;">
+    <div class="section-label">What ANG Builds</div>
+    <div class="section-note">Every build is custom — scoped to what your business actually needs, not a template.</div>
+
+    <div class="what-card highlight">
+      <div class="what-icon">🤖</div>
+      <div><div class="what-title">Custom AI Agents &amp; Automation</div><div class="what-body">Your own AI assistant — with its own email inbox, memory, and instructions built around your business. You're looking at proof: Ember (my own agent) helped put this page together.</div></div>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">⚙️</div>
+      <div><div class="what-title">Operations Infrastructure</div><div class="what-body">Order intake, job tracking, client history, booking systems, contracts, deposits — all in one place, built for your specific business.</div></div>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📡</div>
+      <div><div class="what-title">Client Communication</div><div class="what-body">Mass SMS, automated updates, intake forms — reach your clients the right way without doing it manually every time.</div></div>
+    </div>
+    <div class="what-card">
+      <div class="what-icon">📊</div>
+      <div><div class="what-title">Visibility &amp; Reporting</div><div class="what-body">See what's happening across your business at a glance — revenue, jobs, appointments, clients — all in one dashboard.</div></div>
+    </div>
+  </div>
+
+  <div class="process-strip">
+    <div class="process-step"><span class="process-word">Consult</span></div><div class="process-arrow">→</div>
+    <div class="process-step"><span class="process-word">Plan</span></div><div class="process-arrow">→</div>
+    <div class="process-step"><span class="process-word">Build</span></div><div class="process-arrow">→</div>
+    <div class="process-step"><span class="process-word">Retain</span></div>
+  </div>
+
+  <div class="proof-section">
+    <div class="proof-badge navy-bg">🏫</div>
+    <div><div class="proof-label">Built in Youngstown</div><div class="proof-text">Inspiring Minds Scholar Portal</div><div class="proof-sub">Gamified student tracking system — built and retained by ANG Enterprises for YCS students &amp; families.</div></div>
+  </div>
+
+  <div class="proof-section brown">
+    <div class="proof-badge brown-bg">✉️</div>
+    <div><div class="proof-label">Live Example</div><div class="proof-text">Ember — My AI Assistant</div><div class="proof-sub">Has her own inbox (iamember0802@agentmail.to), memory, and instructions. Email her yourself — see what a custom-built agent actually feels like.</div></div>
+  </div>
+
+  <div class="cta-section">
+    <div class="qr-wrap"><div id="qr-ang"></div></div>
+    <div class="cta-text">
+      <div class="cta-headline">Ready to <span class="green">Build?</span></div>
+      <p class="cta-body">Scan to fill out a 5-minute discovery form and schedule a consultation. Tell us how your business runs — we'll tell you exactly what to build.</p>
+      <div class="cta-url">granta-coder.github.io/ANG-discovery/</div>
+    </div>
+  </div>
+
+  <div class="flyer-footer">
+    <div class="footer-name">Let's Talk</div>
+    <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value placeholder">[ADD PHONE NUMBER]</div></div>
+    <div class="contact-row"><div class="contact-label">Email</div><div class="contact-value">african1024@gmail.com</div></div>
+    <div class="contact-row"><div class="contact-label">Ask Ember</div><div class="contact-value">iamember0802@agentmail.to</div></div>
+    <div class="contact-row"><div class="contact-label">Socials</div><div class="contact-value placeholder">[ADD YOUR HANDLES]</div></div>
+    <div class="contact-note"><strong>Note:</strong> anything discussed here is a starting conversation — nothing's final until we talk it through directly.</div>
+  </div>
+
+  <a class="cross-link" href="culturati-printing.html">Need print, merch, or event space instead? <span>Culturati Printing →</span></a>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+<script>
+  new QRCode(document.getElementById("qr-ang"), {
+    text: "https://granta-coder.github.io/ANG-discovery/ang-discovery-form.html",
+    width: 92, height: 92, colorDark: "#1E2761", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>
