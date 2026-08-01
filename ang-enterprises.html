@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ANG Enterprises — African Grant</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
       --navy:  #1E2761;
@@ -105,14 +104,19 @@
     .proof-text { font-size: 11.5px; font-weight: 600; color: var(--white); line-height: 1.4; }
     .proof-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; line-height: 1.5; }
 
-    .cta-section { background: var(--navy2); padding: 26px 36px 30px; display: flex; gap: 22px; align-items: center; position: relative; z-index: 1; }
-    .qr-wrap { flex-shrink: 0; background: white; padding: 8px; border-radius: 10px; }
-    .qr-wrap canvas, .qr-wrap img { display: block; border-radius: 4px; }
+    .cta-section { background: var(--navy2); padding: 26px 36px 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; position: relative; z-index: 1; }
     .cta-text { flex: 1; }
     .cta-headline { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); line-height: 1; letter-spacing: 0.02em; margin-bottom: 8px; }
     .cta-headline .green { color: var(--green); }
-    .cta-body { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 12px; }
-    .cta-url { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; word-break: break-all; }
+    .cta-body { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: white; text-decoration: none;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      padding: 12px 22px; border-radius: 8px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .cta-btn:hover { background: var(--green2); transform: translateY(-1px); }
 
     .flyer-footer { background: var(--navy2); border-top: 1px solid rgba(255,255,255,0.08); padding: 26px 36px 30px; position: relative; z-index: 1; }
     .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: white; letter-spacing: 0.03em; margin-bottom: 14px; }
@@ -146,7 +150,6 @@
       .problem-row { padding: 22px 24px; }
       .hero, .what-section, .cta-section, .flyer-footer { padding-left: 24px; padding-right: 24px; }
       .rule, .process-strip, .proof-section { margin-left: 24px; margin-right: 24px; }
-      .cta-section { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -214,12 +217,11 @@
   </div>
 
   <div class="cta-section">
-    <div class="qr-wrap"><div id="qr-ang"></div></div>
     <div class="cta-text">
       <div class="cta-headline">Ready to <span class="green">Build?</span></div>
-      <p class="cta-body">Scan to fill out a 5-minute discovery form and schedule a consultation. Tell us how your business runs — we'll tell you exactly what to build.</p>
-      <div class="cta-url">granta-coder.github.io/ANG-discovery/</div>
+      <p class="cta-body">Fill out a 5-minute discovery form and schedule a consultation. Tell us how your business runs — we'll tell you exactly what to build.</p>
     </div>
+    <a class="cta-btn" href="https://granta-coder.github.io/ANG-discovery/ang-discovery-form.html" target="_blank" rel="noopener">Start the Discovery Form <span aria-hidden="true">&rarr;</span></a>
   </div>
 
   <div class="flyer-footer">
@@ -236,13 +238,6 @@
 </div>
 
 <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
-
-<script>
-  new QRCode(document.getElementById("qr-ang"), {
-    text: "https://granta-coder.github.io/ANG-discovery/ang-discovery-form.html",
-    width: 92, height: 92, colorDark: "#1E2761", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H
-  });
-</script>
 
 </body>
 </html>
