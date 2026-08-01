@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANG Enterprises — Tell Me About Your Business</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --navy: #1E2761;
+      --navy-light: #253080;
+      --green: #1D9E75;
+      --green-light: #22b585;
+      --white: #ffffff;
+      --off-white: #f4f6fb;
+      --gray: #8892a4;
+      --border: #dde3f0;
+      --text: #1a2035;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+
+    .page { max-width: 520px; margin: 0 auto; }
+
+    .header {
+      background: var(--navy);
+      border-radius: 16px 16px 0 0;
+      padding: 36px 40px 30px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(29,158,117,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .header-tag {
+      display: inline-block;
+      background: rgba(29,158,117,0.2);
+      border: 1px solid rgba(29,158,117,0.4);
+      color: var(--green-light);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .header p {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .form-body {
+      background: white;
+      border-radius: 0 0 16px 16px;
+      padding: 40px;
+      box-shadow: 0 8px 40px rgba(30,39,97,0.08);
+    }
+
+    .field-group { margin-bottom: 20px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .field-row .field-group { margin-bottom: 0; }
+
+    label.field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+    label.field-label .req { color: var(--green); }
+
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
+      background: white;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--green-light); }
+    .btn-submit:disabled { opacity: 0.6; cursor: default; }
+
+    .foot-note {
+      font-size: 11px;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    .result-msg {
+      display: none;
+      text-align: center;
+      padding: 24px 8px 8px;
+    }
+    .result-msg.show { display: block; }
+    .result-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(29,158,117,0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .result-msg.error .result-icon { background: rgba(200,60,60,0.1); }
+    .result-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .result-body { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    @media (max-width: 560px) {
+      .header, .form-body { padding-left: 26px; padding-right: 26px; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .field-row .field-group { margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-tag">ANG Enterprises LLC</div>
+    <h1>Tell Me About Your Business</h1>
+    <p>Just the basics for now — I'll follow up personally to schedule a time to talk through the rest.</p>
+  </div>
+
+  <div class="form-body">
+    <form id="intake-form">
+      <div class="field-group">
+        <label class="field-label">Full Name <span class="req">*</span></label>
+        <input type="text" name="name" required />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Business / Company Name <span class="req">*</span></label>
+          <input type="text" name="business_name" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Industry</label>
+          <input type="text" name="industry" placeholder="e.g. Print services, Retail" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Years in Business</label>
+        <input type="text" name="years_in_business" placeholder="e.g. 3 years, just starting out" />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Phone</label>
+          <input type="tel" name="phone" placeholder="(555) 000-0000" />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Send &amp; I'll Reach Out</button>
+      <div class="foot-note">Goes straight to me — no spam, no mailing list, just a real follow-up.</div>
+    </form>
+
+    <div class="result-msg" id="success-msg">
+      <div class="result-icon">✓</div>
+      <div class="result-title">Got it — thank you.</div>
+      <div class="result-body">I'll be in touch soon to schedule a time to talk through your business and what you need.</div>
+    </div>
+
+    <div class="result-msg error" id="error-msg">
+      <div class="result-icon">!</div>
+      <div class="result-title">Something went wrong.</div>
+      <div class="result-body">Try again, or email me directly at african1024@gmail.com.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById('intake-form');
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('.btn-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('https://formspree.io/iamember0802@agentmail.to', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.classList.add('show');
+      } else {
+        errorMsg.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send & I'll Reach Out";
+      }
+    } catch (err) {
+      errorMsg.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send & I'll Reach Out";
+    }
+  });
+</script>
+
+</body>
+</html>
